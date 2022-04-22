@@ -28,5 +28,14 @@ public class addLocation {
                 String placeid = parsedResponse.getString("place_id");
                 System.out.println("Extracted Place id from Response"+ placeid);
 
+                //Update Place
+        given().log().all().queryParam("key","qaclick123").header("Content-Type","application/json")
+                .body("{\n" +
+                        "\"place_id\":\""+placeid+"\",\n" +
+                        "\"address\":\"71 Summer street USA\",\n" +
+                        "\"key\":\"qaclick123\"\n" +
+                        "}\n")
+                .when().put("maps/api/place/update/json")
+                .then().assertThat().log().all().statusCode(200).body("msg",equalTo("Address successfully updated"));
     }
 }
