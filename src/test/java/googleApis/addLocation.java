@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 import files.payLoads;
 import io.restassured.path.json.JsonPath;
+import org.testng.Assert;
 
 public class addLocation {
     public static void main(String[] args) {
@@ -29,13 +30,26 @@ public class addLocation {
                 System.out.println("Extracted Place id from Response"+ placeid);
 
                 //Update Place
-        given().log().all().queryParam("key","qaclick123").header("Content-Type","application/json")
+              String updatedAddress ="Summer Walk Africa";
+                given().log().all().queryParam("key","qaclick123").header("Content-Type","application/json")
                 .body("{\n" +
                         "\"place_id\":\""+placeid+"\",\n" +
-                        "\"address\":\"71 Summer street USA\",\n" +
+                        "\"address\":\""+updatedAddress+"\",\n" +
                         "\"key\":\"qaclick123\"\n" +
                         "}\n")
                 .when().put("maps/api/place/update/json")
                 .then().assertThat().log().all().statusCode(200).body("msg",equalTo("Address successfully updated"));
+
+               //Get Place
+        String getPlaceResponse = given().log().all().queryParam("key","qaclick123")
+                .queryParam("place_id",placeid)
+                .when().get("maps/api/place/get/json")
+                .then().assertThat().log().all().statusCode(200).extract().response().asString();
+
+           JsonPath getPlacePath =  commonUtils.rawtoJson(getPlaceResponse);
+           String actualAddress  = getPlacePath.getString("address");
+           System.out.println(actualAddress);
+           Assert.assertEquals(actualAddress,updatedAddress);
+
     }
 }
