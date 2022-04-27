@@ -19,7 +19,15 @@ public class complexJsonParse {
         System.out.println(amount);
 
         //Title of first course
-       String title = complexjson.get("courses[2].title");
+        String title = complexjson.get("courses[2].title");
         System.out.println(title);
+
+        //print all course titles and their prices
+
+        for(int i=0;i<course;i++) {
+            String courseTitles= complexjson.get("courses[" + i + "].title"); //Placing variable between string
+            System.out.println(courseTitles);
+            System.out.println(complexjson.get("courses[" + i + "].price").toString());
+        }
     }
 }
