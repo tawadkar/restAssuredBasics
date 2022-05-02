@@ -7,8 +7,12 @@ import files.payLoads;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class addLocation {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /* given() - contains all th input parameters
           when() - Submit the API, resource, http method
           then() - validate the response
@@ -16,7 +20,9 @@ public class addLocation {
 
         RestAssured.baseURI= "https://rahulshettyacademy.com";
        String response = given().log().all().queryParam("key","qaclick123").header("Content-Type","application/json")
-                .body(payLoads.addPlace())
+                //.body(payLoads.addPlace())
+               // .readAllBytes=> converts content of file from string to byte, new String=> converts back from byte to string
+                .body(new String(Files.readAllBytes(Paths.get("T:\\apiAutomation\\src\\test\\java\\files\\addPlace.json"))))
                 .when().post("maps/api/place/add/json")
                 .then().assertThat().statusCode(200)
                 .body("scope",equalTo("APP"))
