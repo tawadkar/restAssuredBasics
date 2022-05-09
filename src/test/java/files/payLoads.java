@@ -84,5 +84,23 @@ public class payLoads {
         return payload;
        }
 
+       public static  String addComment(){
+        return "{\n" +
+                "    \"body\": \"Test Comment through Automation\",\n" +
+                "    \"visibility\": {\n" +
+                "        \"type\": \"role\",\n" +
+                "        \"value\": \"Administrators\"\n" +
+                "    }\n" +
+                "}";
+       }
+
+       public static String LoginToJira(){
+
+        return "{\n" +
+                "    \"username\": \"twadkar\",\n" +
+                "    \"password\": \"tanmay0711\"\n" +
+                "}";
+       }
+
 
 }
