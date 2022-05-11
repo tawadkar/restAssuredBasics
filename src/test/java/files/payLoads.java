@@ -86,7 +86,7 @@ public class payLoads {
 
        public static  String addComment(){
         return "{\n" +
-                "    \"body\": \"Test Comment through Automation\",\n" +
+                "    \"body\": \"Test Comment through Automation for Attachment\",\n" +
                 "    \"visibility\": {\n" +
                 "        \"type\": \"role\",\n" +
                 "        \"value\": \"Administrators\"\n" +
