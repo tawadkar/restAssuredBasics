@@ -9,4 +9,10 @@ public class commonUtils {
         JsonPath getPlacePath = new JsonPath(response);
         return getPlacePath;
     }
+
+    public static JsonPath addCommentJson (String response) {
+
+        JsonPath addCommentPath = new JsonPath(response);
+        return  addCommentPath;
+    }
 }
