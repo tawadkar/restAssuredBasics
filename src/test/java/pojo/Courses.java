@@ -25,7 +25,7 @@ public class Courses {
     public void setApi(List<Api> api) {
         this.api = api;
     }
-
+    //Return type is Mobile Class
     public List<Mobile> getMobile() {
         return mobile;
     }
