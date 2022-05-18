@@ -26,7 +26,7 @@ public class OAuthTest {
          * 2.Enter gmail Username and Password
          * 3.Below url will be generated
          * */
-        String url = "https://rahulshettyacademy.com/getCourse.php?code=4%2F0AX4XfWge5OC45gDAFWXM7_Tpgc9--YaSqFJkLN4m5hly405J-CrrDrY5XtuVdFtqNCgKUA&scope=email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent";
+        String url = "https://rahulshettyacademy.com/getCourse.php?code=4%2F0AX4XfWivqPSx579c3yNWD3t94qW7SpX1MvKtQ7pF7QTdDNqUA-dGkOE_tx5o8HrAdchluQ&scope=email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=none";
         String partialurl = url.split("code=")[1];
         String code = partialurl.split("&scope")[0];
         System.out.println("AUTHORIZATION CODE FROM GOOGLE TO GENERATE ACCESS TOKEN***" +code);
