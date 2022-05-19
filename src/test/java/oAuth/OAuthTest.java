@@ -1,12 +1,13 @@
 package oAuth;
 import static io.restassured.RestAssured.given;
 import googleApis.commonUtils;
+import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import pojo.getCourses;
 public class OAuthTest {
 
     public static void main(String[] args) throws InterruptedException {
@@ -26,7 +27,7 @@ public class OAuthTest {
          * 2.Enter gmail Username and Password
          * 3.Below url will be generated
          * */
-        String url = "https://rahulshettyacademy.com/getCourse.php?code=4%2F0AX4XfWivqPSx579c3yNWD3t94qW7SpX1MvKtQ7pF7QTdDNqUA-dGkOE_tx5o8HrAdchluQ&scope=email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=none";
+        String url = "https://rahulshettyacademy.com/getCourse.php?code=4%2F0AX4XfWhTbvSz8zARxWPXSzfBs7jtGyhsPHdeDkBgLJz7M9_KyA4KuDUDUKhRI3oU4rN-8A&scope=email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=none";
         String partialurl = url.split("code=")[1];
         String code = partialurl.split("&scope")[0];
         System.out.println("AUTHORIZATION CODE FROM GOOGLE TO GENERATE ACCESS TOKEN***" +code);
@@ -49,10 +50,15 @@ public class OAuthTest {
         String accessToken = js.getString("access_token");
         System.out.println("ACCESS TOKEN IS FOR GET COURSE *********" +accessToken);
 
-      String accessTokenResponse = given().queryParam("access_token",accessToken)
-              .when().log().all()
-              .get("https://rahulshettyacademy.com/getCourse.php").asString();
-      System.out.println(accessTokenResponse);
+        //If content type is not application/json ex. application/text
+       getCourses gc = given().queryParam("access_token",accessToken).expect().defaultParser(Parser.JSON)
+              .when()
+              .get("https://rahulshettyacademy.com/getCourse.php").as(getCourses.class);
+               //System.out.println(accessTokenResponse);
+
+           //Deserialization
+           System.out.println(gc.getLinkedIn());
+           System.out.println(gc.getInstructor());
 
     }
 }
