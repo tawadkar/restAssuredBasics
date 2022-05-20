@@ -7,7 +7,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import pojo.Api;
+import pojo.WebAutomation;
 import pojo.getCourses;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class OAuthTest {
 
     public static void main(String[] args) throws InterruptedException {
@@ -22,7 +30,7 @@ public class OAuthTest {
         Thread.sleep(2000);*/
       //  String url = driver.getCurrentUrl();
 
-        /* Steps to generate below url
+        /* Steps to generate below url, As Google has prohibited gmail sign-in page automation hard coded below value
          * 1. Navigate to https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email&auth_url=https://accounts.google.com/o/oauth2/v2/auth&client_id=692183103107-p0m7ent2hk7suguv4vq22hjcfhcr43pj.apps.googleusercontent.com&response_type=code&redirect_uri=https://rahulshettyacademy.com/getCourse.php
          * 2.Enter gmail Username and Password
          * 3.Below url will be generated
@@ -31,6 +39,8 @@ public class OAuthTest {
         String partialurl = url.split("code=")[1];
         String code = partialurl.split("&scope")[0];
         System.out.println("AUTHORIZATION CODE FROM GOOGLE TO GENERATE ACCESS TOKEN***" +code);
+
+        String expectedTitles[] ={"Selenium Webdriver Java","Cypress","Protractor"};
 
       //urlEncodingEnabled=false will not encode the url i.e special characters will not be converted to numeric digits
       String accessTokenFromGoogle=  given().urlEncodingEnabled(false)
@@ -60,5 +70,29 @@ public class OAuthTest {
            System.out.println(gc.getLinkedIn());
            System.out.println(gc.getInstructor());
 
+           //Get Course Title inside API
+           System.out.println(gc.getCourses().getApi().get(1).getCourseTitle());
+
+           //Get course price for a specific title by iterating through all the courses
+
+        List<Api> apiCourses = gc.getCourses().getApi();
+        for(int i=0;i<apiCourses.size();i++){
+
+            if(apiCourses.get(i).getCourseTitle().equalsIgnoreCase("SoapUI Webservices Testing")){
+                System.out.println(apiCourses.get(i).getPrice());
+            }
+        }
+
+        //Get course names of wen automation
+        // For dynamic arrays always use array list
+
+        ArrayList<String> expectedCourseTitles=  new ArrayList<>();
+        List<WebAutomation> wa = gc.getCourses().getWebAutomation();
+        for(int j=0;j<wa.size();j++){
+            expectedCourseTitles.add(wa.get(j).getCourseTitle());
+        }
+        //Convert ArrayList to Array for assertion
+        List<String> et = Arrays.asList(expectedTitles);
+        Assert.assertTrue(expectedCourseTitles.equals(et));
     }
 }
