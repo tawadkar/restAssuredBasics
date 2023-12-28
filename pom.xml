@@ -11,6 +11,14 @@
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
+        <restassuredVersion>5.3.0</restassuredVersion>
+        <testngVersion>7.4.0</testngVersion>
+        <jacksonVersion></jacksonVersion>
+        <gsonVersion>2.9.0</gsonVersion>
+        <extentVersion></extentVersion>
+        <javafakerVersion>1.0.2</javafakerVersion>
+        <apacheCommonLangVersion>3.12.0</apacheCommonLangVersion>
+
     </properties>
 
  <dependencies>
@@ -18,13 +26,13 @@
      <dependency>
          <groupId>io.rest-assured</groupId>
          <artifactId>rest-assured</artifactId>
-         <version>4.4.0</version>
+         <version>${restassuredVersion}</version>
      </dependency>
      <!-- https://mvnrepository.com/artifact/org.testng/testng -->
      <dependency>
          <groupId>org.testng</groupId>
          <artifactId>testng</artifactId>
-         <version>7.4.0</version>
+         <version>${testngVersion}</version>
      </dependency>
      <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
      <dependency>
@@ -62,8 +70,30 @@
      <dependency>
          <groupId>com.google.code.gson</groupId>
          <artifactId>gson</artifactId>
-         <version>2.9.0</version>
+         <version>${gsonVersion}</version>
      </dependency>
+     <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+     <dependency>
+         <groupId>com.github.javafaker</groupId>
+         <artifactId>javafaker</artifactId>
+         <version>${javafakerVersion}</version>
+     </dependency>
+
+     <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+     <dependency>
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <version>1.18.24</version>
+         <scope>provided</scope>
+     </dependency>
+     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+     <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-lang3</artifactId>
+         <version>${apacheCommonLangVersion}</version>
+     </dependency>
+
+
 
 
  </dependencies>
